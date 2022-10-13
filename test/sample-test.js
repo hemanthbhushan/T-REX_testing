@@ -2,10 +2,7 @@ const { expect } = require("chai");
 const { ethers, network } = require("hardhat");
 const { Signer } = require("ethers");
 const { isCallTrace } = require("hardhat/internal/hardhat-network/stack-traces/message-trace");
-// const{IdentityProxy } = require("@onchain-id/solidity/contracts/IdentityProxy.sol");
-// const{ImplementationAuthority } = require("@onchain-id/solidity/contracts/ImplementationAuthority.sol");
-// const{ClaimIssuer} = require("@onchain-id/solidity/contracts/ClaimIssuer.sol")
-
+const { AbiCoder } = require("ethers/lib/utils");
 // describe("testing",()=>{
 //   // let identityRegistry,identityRegistryStorage,tokenName,
 //   let claimTopicsRegistry;
@@ -93,10 +90,12 @@ const { isCallTrace } = require("hardhat/internal/hardhat-network/stack-traces/m
 
 describe("test for the identity contract",()=>{
 
-  let _identity,identityIssuer,implementationAuthority,_identityProxy,proxy,claimHolder,claimIssuer,claimIssuerContract;
+  let _identity,key,identityIssuer,implementationAuthority,_identityProxy,proxy,claimHolder,claimIssuer,claimIssuerContract;
 
   beforeEach(async()=>{
     [owner,identityIssuer,claimIssuer] =await ethers.getSigners();
+
+     key = ethers.utils.keccak256(ethers.utils.AbiCoder( "address" , identityIssuer.address ));
 
     const Identity = await ethers.getContractFactory("identity",owner);
      _identity  = await Identity.deploy(identityIssuer.address,true);
@@ -119,10 +118,19 @@ describe("test for the identity contract",()=>{
       
 
       // await claimHolder.connect(claimIssuerContract).addClaim(1, 1, claimIssuerContract.address, '0x24', '0x12', 'tokenyyyy');
+      })
 
-      
-      
-  })
+
+      it("by default the identity should have a management key when deployed",async()=>{
+        const check = await claimHolder.keyHasPurpose(key, 1);
+        expect(check).to.be.equal(true);
+      })
+
+
+
+
+
+
 })
 
 
