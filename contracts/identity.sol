@@ -366,6 +366,8 @@ contract Identity is Storage, IIdentity, Version {
     {
         bytes32 claimId = keccak256(abi.encode(_issuer, _topic));
 
+        
+
         if (msg.sender != address(this)) {
             //the claim issuer should have the  claim signer with it that is purpose(3 = claim signer ),if the claim signer adddress is deleated from the claim issuer then the claim will be in valid
             require(keyHasPurpose(keccak256(abi.encode(msg.sender)), 3), "Permissions: Sender does not have claim signer key");
