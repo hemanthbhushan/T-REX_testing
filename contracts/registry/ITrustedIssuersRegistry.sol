@@ -24,7 +24,7 @@
 
 pragma solidity ^0.8.0;
 
-import "@onchain-id/solidity/contracts/interface/IClaimIssuer.sol";
+import "../interface/IClaimIssuer.sol";
 
 interface ITrustedIssuersRegistry {
     /**

@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 // imports here are just for testing purpose
 
-import '@onchain-id/solidity/contracts/ClaimIssuer.sol';
-import '@onchain-id/solidity/contracts/Identity.sol';
+import "./ClaimIssuer.sol";
+// import "@onchain-id/solidity/contracts/identity.sol";
 
 contract Migrations {
     address public owner;

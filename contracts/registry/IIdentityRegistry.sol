@@ -28,8 +28,8 @@ import "../registry/ITrustedIssuersRegistry.sol";
 import "../registry/IClaimTopicsRegistry.sol";
 import "../registry/IIdentityRegistryStorage.sol";
 
-import "@onchain-id/solidity/contracts/interface/IClaimIssuer.sol";
-import "@onchain-id/solidity/contracts/interface/IIdentity.sol";
+import "../interface/IClaimIssuer.sol";
+import "../interface/IIdentity.sol";
 
 interface IIdentityRegistry {
     /**

@@ -95,9 +95,12 @@ describe("test for the identity contract",()=>{
   beforeEach(async()=>{
     [owner,identityIssuer,claimIssuer] =await ethers.getSigners();
 
-     key = ethers.utils.keccak256(ethers.utils.AbiCoder( "address" , identityIssuer.address ));
+    // let abiCoder = ethers.utils.defaultAbiCoder;
+    // // key = abiCoder.encode(abi.foobar.inputs, values);
 
-    const Identity = await ethers.getContractFactory("identity",owner);
+    //  key = ethers.utils.keccak256(ethers.utils.AbiCoder( "address" , identityIssuer.address ));
+    const key = web3.utils.keccak256(web3.eth.abi.encodeParameter('address', identityIssuer.address));
+    const Identity = await ethers.getContractFactory("identity");
      _identity  = await Identity.deploy(identityIssuer.address,true);
 
      const _ImplementationAuthority = await ethers.getContractFactory("ImplementationAuthority");
@@ -125,6 +128,8 @@ describe("test for the identity contract",()=>{
         const check = await claimHolder.keyHasPurpose(key, 1);
         expect(check).to.be.equal(true);
       })
+
+
 
 
 
