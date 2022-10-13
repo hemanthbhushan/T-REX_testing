@@ -174,7 +174,7 @@ describe("test for the identity contract",()=>{
       })
       it("gets reverted if the msg.sender doesnt have the msnagement key (dount))",async()=>{
         const claimId = web3.utils.keccak256(web3.eth.abi.encodeParameters(['address', 'uint'], [claimIssuerContract.address, 1]));
-        await claimHolder.connect(signer1).removeClaim(claimId).to.be.revertedWith("Permissions: Sender does not have claim signer key");
+        expect(claimHolder.connect(signer1).removeClaim(claimId)).to.be.revertedWith("Permissions: Sender does not have claim signer key");
       })
 
 
