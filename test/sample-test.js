@@ -101,7 +101,7 @@ describe("test for the identity contract",()=>{
     //  key = ethers.utils.keccak256(ethers.utils.AbiCoder( "address" , identityIssuer.address ));
     const key = web3.utils.keccak256(web3.eth.abi.encodeParameter('address', identityIssuer.address));
      const newKey = web3.utils.keccak256(web3.eth.abi.encodeParameter('address', signer1.address));
-    const Identity = await ethers.getContractFactory("identity");
+    const Identity = await ethers.getContractFactory("Identity");
      _identity  = await Identity.deploy(identityIssuer.address,true);
 
      const _ImplementationAuthority = await ethers.getContractFactory("ImplementationAuthority");
@@ -158,7 +158,7 @@ describe("test for the identity contract",()=>{
         let check = await claimHolder.connect(identityIssuer).removeKey(key,1);
         expect(check).to.equal(true);s
       })
-       it("reverts when the address called has no ma")
+      //  it("reverts when the address called has no ma")
       it("addClaim will revert when the msg.sender got no claim key ==3",async()=>{
         await claimHolder.connect(claimHolder).addKey(key,3,1);
         await claimHolder.connect(claimHolder).addClaim(1,1,claimIssuerContract.address, '0x24', '0x12', '');
@@ -176,6 +176,7 @@ describe("test for the identity contract",()=>{
         const claimId = web3.utils.keccak256(web3.eth.abi.encodeParameters(['address', 'uint'], [claimIssuerContract.address, 1]));
         expect(claimHolder.connect(signer1).removeClaim(claimId)).to.be.revertedWith("Permissions: Sender does not have claim signer key");
       })
+      it()
 
 
 
